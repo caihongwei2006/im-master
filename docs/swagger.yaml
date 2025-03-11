@@ -1,0 +1,137 @@
+basePath: /
+host: localhost:8080
+info:
+  contact:
+    email: support@yourcompany.com
+    name: API Support
+    url: http://www.yourcompany.com/support
+  description: IM系统API文档
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: IM System API
+  version: "1.0"
+paths:
+  /user/createuser:
+    get:
+      consumes:
+      - application/json
+      description: 根据提供的用户名和密码创建新用户
+      parameters:
+      - description: 用户名
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: 密码
+        in: query
+        name: password
+        required: true
+        type: string
+      - description: 确认密码
+        in: query
+        name: repassword
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建成功响应
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: 密码不匹配错误
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 创建新用户
+      tags:
+      - users
+  /user/deleteuser:
+    get:
+      consumes:
+      - application/json
+      description: 根据用户名删除指定用户
+      parameters:
+      - description: 要删除的用户名
+        in: query
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功响应
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 删除用户
+      tags:
+      - users
+  /user/updateuser:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 根据用户ID更新用户名和密码
+      parameters:
+      - description: 用户ID
+        in: formData
+        name: id
+        required: true
+        type: integer
+      - description: 新用户名
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: 新密码
+        in: formData
+        name: password
+        required: true
+        type: string
+      - description: 新密码
+        in: formData
+        name: email
+        required: true
+        type: string
+      - description: 新密码
+        in: formData
+        name: phone
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功响应
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 更新用户信息
+      tags:
+      - users
+  /user/userlist:
+    get:
+      consumes:
+      - application/json
+      description: 返回系统中所有用户的列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回用户列表和消息
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 获取用户列表
+      tags:
+      - users
+swagger: "2.0"
